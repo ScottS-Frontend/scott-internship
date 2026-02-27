@@ -96,7 +96,6 @@ const NewItems = () => {
   };
 
   if (loading) {
-    console.log("Showing skeleton");
     return (
       <section id="section-items" className="no-bottom">
         <div className="container">
