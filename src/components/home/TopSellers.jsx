@@ -24,7 +24,7 @@ const TopSellers = () => {
                         src={AuthorImage}
                         alt=""
                       />
-                      <i className="fa fa-check"></i>
+                      <i className="fa fa-check">< /i>
                     </Link>
                   </div>
                   <div className="author_list_info">
