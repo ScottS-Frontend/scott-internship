@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
+import { 
+  NewItemsSkeleton, 
+  SkeletonSection,
+  useLoadingDelay 
+} from "../Skeleton/Skeleton";
 
 const Countdown = ({ expiryDate }) => {
   const [timeLeft, setTimeLeft] = React.useState(expiryDate - Date.now());
@@ -26,56 +31,23 @@ const Countdown = ({ expiryDate }) => {
   );
 };
 
-const SkeletonItem = () => {
-  return (
-    <div className="nft__item">
-      <div className="author_list_pp">
-        <div
-          className="skeleton-circle"
-          style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-        ></div>
-        <i className="fa fa-check" style={{ opacity: 0 }}></i>
-      </div>
-      <div
-        className="de_countdown skeleton-box"
-        style={{ width: "80px", height: "20px" }}
-      ></div>
-      <div className="nft__item_wrap">
-        <div
-          className="skeleton-box"
-          style={{ height: "200px", width: "100%" }}
-        ></div>
-      </div>
-      <div className="nft__item_info">
-        <div
-          className="skeleton-text"
-          style={{ width: "60%", height: "20px", marginBottom: "8px" }}
-        ></div>
-        <div
-          className="skeleton-text"
-          style={{ width: "40%", height: "16px" }}
-        ></div>
-      </div>
-    </div>
-  );
-};
-
 const NewItems = () => {
   const [items, setItems] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
+  const showSkeleton = useLoadingDelay(loading, 300); // 300ms delay
 
   React.useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await axios.get(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems",
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
         );
         setItems(response.data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching items:", error);
         setError("Failed to load new items. Please try again later");
+      } finally {
         setLoading(false);
       }
     };
@@ -95,25 +67,11 @@ const NewItems = () => {
     },
   };
 
-  if (loading) {
+  if (showSkeleton) {
     return (
-      <section id="section-items" className="no-bottom">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="text-center">
-                <h2>New Items</h2>
-                <div className="small-border bg-color-2">< /div>
-              </div>
-            </div>
-            {[1, 2, 3, 4].map((_, index) => (
-              <div className="col-lg-3 col-md-6 col-xs-12" key={index}>
-                <SkeletonItem />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SkeletonSection id="section-items" className="no-bottom">
+        <NewItemsSkeleton count={4} />
+      </SkeletonSection>
     );
   }
 
