@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 // Base skeleton primitives
 export const SkeletonBox = ({ className = "", style = {} }) => (
@@ -11,15 +11,17 @@ export const SkeletonCircle = ({ className = "", style = {} }) => (
 
 export const SkeletonText = ({ className = "", style = {}, lines = 1 }) => {
   if (lines === 1) {
-    return <div className={`skeleton skeleton-text ${className}`} style={style} />;
+    return (
+      <div className={`skeleton skeleton-text ${className}`} style={style} />
+    );
   }
   return (
     <div className="skeleton-text-lines">
       {Array.from({ length: lines }).map((_, i) => (
-        <div 
-          key={i} 
-          className={`skeleton skeleton-text ${className}`} 
-          style={{ ...style, width: i === lines - 1 ? '60%' : style.width }} 
+        <div
+          key={i}
+          className={`skeleton skeleton-text ${className}`}
+          style={{ ...style, width: i === lines - 1 ? "60%" : style.width }}
         />
       ))}
     </div>
@@ -62,7 +64,9 @@ export const HotCollectionsSkeleton = ({ count = 4 }) => (
             <SkeletonCircle style={{ width: "50px", height: "50px" }} />
           </div>
           <div className="nft_coll_info text-center">
-            <SkeletonText style={{ width: "60%", height: "20px", marginBottom: "8px" }} />
+            <SkeletonText
+              style={{ width: "60%", height: "20px", marginBottom: "8px" }}
+            />
             <SkeletonText style={{ width: "40%", height: "16px" }} />
           </div>
         </div>
@@ -115,7 +119,9 @@ export const TopSellersSkeleton = ({ count = 12 }) => (
               <SkeletonCircle style={{ width: "50px", height: "50px" }} />
             </div>
             <div className="author_list_info">
-              <SkeletonText style={{ width: "120px", height: "16px", marginBottom: "4px" }} />
+              <SkeletonText
+                style={{ width: "120px", height: "16px", marginBottom: "4px" }}
+              />
               <SkeletonText style={{ width: "80px", height: "14px" }} />
             </div>
           </li>
@@ -128,9 +134,7 @@ export const TopSellersSkeleton = ({ count = 12 }) => (
 // Section wrapper with consistent styling
 export const SkeletonSection = ({ children, id, className = "" }) => (
   <section id={id} className={className}>
-    <div className="container">
-      {children}
-    </div>
+    <div className="container">{children}</div>
   </section>
 );
 

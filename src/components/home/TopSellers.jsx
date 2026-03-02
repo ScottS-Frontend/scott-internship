@@ -1,10 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+<<<<<<< Updated upstream
+import AuthorImage from "../../images/author_thumbnail.jpg";
+
+const TopSellers = () => {
+=======
 import axios from "axios";
-import { 
-  TopSellersSkeleton, 
+import {
+  TopSellersSkeleton,
   SkeletonSection,
-  useLoadingDelay 
+  useLoadingDelay,
 } from "../Skeleton/Skeleton";
 
 const TopSellers = () => {
@@ -17,7 +22,7 @@ const TopSellers = () => {
     const fetchItems = async () => {
       try {
         const { data } = await axios.get(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers"
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers",
         );
         setItems(data);
       } catch (err) {
@@ -43,6 +48,7 @@ const TopSellers = () => {
     return <p className="text-center text-danger">{error}</p>;
   }
 
+>>>>>>> Stashed changes
   return (
     <section id="section-popular" className="pb-5">
       <div className="container">
