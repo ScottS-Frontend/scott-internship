@@ -131,6 +131,46 @@ export const TopSellersSkeleton = ({ count = 12 }) => (
   </div>
 );
 
+// Explore Items Skeleton Layout
+export const ExploreItemsSkeleton = ({ count = 8 }) => (
+  <>
+    <div>
+      <select id="filter-items" defaultValue="" disabled>
+        <option value="">Default</option>
+        <option value="price_low_to_high">Price, Low to High</option>
+        <option value="price_high_to_low">Price, High to Low</option>
+        <option value="likes_high_to_low">Most liked</option>
+      </select>
+    </div>
+    {Array.from({ length: count }).map((_, index) => (
+      <div
+        className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
+        key={index}
+        style={{ display: "block", backgroundSize: "cover" }}
+      >
+        <div className="nft__item">
+          <div className="author_list_pp">
+            <SkeletonCircle style={{ width: "50px", height: "50px" }} />
+          </div>
+          <SkeletonBox
+            className="de_countdown"
+            style={{ width: "100px", height: "24px" }}
+          />
+          <div className="nft__item_wrap">
+            <SkeletonBox style={{ height: "200px", width: "100%" }} />
+          </div>
+          <div className="nft__item_info">
+            <SkeletonText
+              style={{ width: "60%", height: "20px", marginBottom: "8px" }}
+            />
+            <SkeletonText style={{ width: "40%", height: "16px" }} />
+          </div>
+        </div>
+      </div>
+    ))}
+  </>
+);
+
 // Section wrapper with consistent styling
 export const SkeletonSection = ({ children, id, className = "" }) => (
   <section id={id} className={className}>
@@ -146,5 +186,6 @@ export default {
   HotCollectionsSkeleton,
   NewItemsSkeleton,
   TopSellersSkeleton,
+  ExploreItemsSkeleton,
   SkeletonSection,
 };

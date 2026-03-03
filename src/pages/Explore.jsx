@@ -5,30 +5,32 @@ import axios from "axios";
 
 const Explore = () => {
   const [items, setItems] = useState([]);
+  const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(8);
 
-  useEffect(() => {
+    useEffect(() => {
     window.scrollTo(0, 0);
     fetchItems();
   }, []);
 
-  const fetchItems = async (filter = "") => {
-    setLoading(true);
-    try {
-      const url = filter
-        ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filter}`
-        : "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore";
+ const fetchItems = async (filterValue = "") => {
+  setLoading(true);
 
-      const response = await axios.get(url);
-      setItems(response.data);
-      setVisibleCount(8);
-    } catch (error) {
-      console.error("Error fetching items:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  try {
+    const url = filterValue
+      ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filterValue}`
+      : "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore";
+
+    const response = await axios.get(url);
+    setItems(response.data);
+    setVisibleCount(8);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+  } finally {
+    setLoading(false);
+  }
+};
 
   const loadMore = () => {
     setVisibleCount((prev) => prev + 4);
@@ -37,6 +39,11 @@ const Explore = () => {
   const visibleItems = items.slice(0, visibleCount);
 
   const showLoadMore = visibleCount < 16 && visibleCount < items.length;
+
+  const handleFilter = (value) => {
+  setFilter(value);
+  fetchItems(value);
+};
 
   return (
     <div id="wrapper">
@@ -64,7 +71,8 @@ const Explore = () => {
               <ExploreItems
                 items={visibleItems}
                 loading={loading}
-                onFilter={fetchItems}
+                onFilter={handleFilter}
+                filter={filter}
                 onLoadMore={loadMore}
                 showLoadMore={showLoadMore}
               />

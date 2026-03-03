@@ -7,11 +7,12 @@ import {
   SkeletonSection,
   useLoadingDelay 
 } from "../Skeleton/Skeleton";
+import { owlCarouselOptions } from "../UI/carouselConfig";
 
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);
   const [loading, setLoading] = useState(true);
-  const showSkeleton = useLoadingDelay(loading, 300); // 300ms delay
+  const showSkeleton = useLoadingDelay(loading, 300);
 
   useEffect(() => {
     const fetchCollections = async () => {
@@ -28,19 +29,6 @@ const HotCollections = () => {
     };
     fetchCollections();
   }, []);
-
-  const options = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    items: 4,
-    slideBy: 1,
-    responsive: {
-      0: { items: 1 },
-      768: { items: 2 },
-      1024: { items: 4 },
-    },
-  };
 
   if (showSkeleton) {
     return (
@@ -61,7 +49,7 @@ const HotCollections = () => {
             </div>
           </div>
           <div className="col-lg-12">
-            <OwlCarousel className="owl-theme" {...options}>
+            <OwlCarousel className="owl-theme" {...owlCarouselOptions}>
               {collections.map((collection) => (
                 <div className="item" key={collection.id}>
                   <div className="nft_coll">
