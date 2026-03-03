@@ -1,43 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
+import Countdown from "../UI/Countdown";
 import { 
   NewItemsSkeleton, 
   SkeletonSection,
   useLoadingDelay 
 } from "../Skeleton/Skeleton";
-
-const Countdown = ({ expiryDate }) => {
-  const [timeLeft, setTimeLeft] = React.useState(expiryDate - Date.now());
-
-  React.useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(expiryDate - Date.now());
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [expiryDate]);
-
-  if (timeLeft <= 0) return null;
-
-  const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-
-  return (
-    <div className="de_countdown">
-      {hours}h {minutes}m {seconds}s
-    </div>
-  );
-};
+import { owlCarouselOptions } from "../UI/carouselConfig";
 
 const NewItems = () => {
-  const [items, setItems] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-  const showSkeleton = useLoadingDelay(loading, 300); // 300ms delay
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const showSkeleton = useLoadingDelay(loading, 300);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchItems = async () => {
       try {
         const response = await axios.get(
@@ -53,19 +32,6 @@ const NewItems = () => {
     };
     fetchItems();
   }, []);
-
-  const options = {
-    loop: true,
-    margin: 10,
-    nav: true,
-    items: 4,
-    slideBy: 1,
-    responsive: {
-      0: { items: 1 },
-      768: { items: 2 },
-      1024: { items: 4 },
-    },
-  };
 
   if (showSkeleton) {
     return (
@@ -108,7 +74,7 @@ const NewItems = () => {
             </div>
           </div>
           <div className="col-lg-12">
-            <OwlCarousel className="owl-theme" {...options}>
+            <OwlCarousel className="owl-theme" {...owlCarouselOptions}>
               {items.map((item) => (
                 <div className="item" key={item.id}>
                   <div className="nft__item">
