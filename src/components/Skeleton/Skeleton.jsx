@@ -199,6 +199,61 @@ export const AuthorSkeleton = ({ count = 4 }) => (
   </div>
 );
 
+// Item Details Skeleton Layout
+export const ItemDetailsSkeleton = () => (
+  <div className="container">
+    <div className="row">
+      <div className="col-md-6 text-center">
+        <SkeletonBox style={{ height: "400px", width: "100%" }} />
+      </div>
+      <div className="col-md-6">
+        <div className="item_info">
+          <SkeletonText style={{ width: "60%", height: "32px", marginBottom: "20px" }} />
+          
+          <div className="item_info_counts" style={{ marginBottom: "20px" }}>
+            <SkeletonBox style={{ width: "80px", height: "24px", display: "inline-block", marginRight: "10px" }} />
+            <SkeletonBox style={{ width: "80px", height: "24px", display: "inline-block" }} />
+          </div>
+          
+          <SkeletonText lines={3} style={{ marginBottom: "20px" }} />
+          
+          <div className="d-flex flex-row" style={{ marginBottom: "20px" }}>
+            <div className="mr40">
+              <SkeletonText style={{ width: "50px", height: "16px", marginBottom: "10px" }} />
+              <div className="item_author">
+                <div className="author_list_pp">
+                  <SkeletonCircle style={{ width: "50px", height: "50px" }} />
+                </div>
+                <div className="author_list_info">
+                  <SkeletonText style={{ width: "100px", height: "16px" }} />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div style={{ marginTop: "20px" }}>
+            <SkeletonText style={{ width: "50px", height: "16px", marginBottom: "10px" }} />
+            <div className="item_author">
+              <div className="author_list_pp">
+                <SkeletonCircle style={{ width: "50px", height: "50px" }} />
+              </div>
+              <div className="author_list_info">
+                <SkeletonText style={{ width: "100px", height: "16px" }} />
+              </div>
+            </div>
+          </div>
+          
+          <div className="spacer-40"></div>
+          <SkeletonText style={{ width: "50px", height: "16px", marginBottom: "10px" }} />
+          <div className="nft-item-price">
+            <SkeletonBox style={{ width: "100px", height: "24px" }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 // Section wrapper with consistent styling
 export const SkeletonSection = ({ children, id, className = "" }) => (
   <section id={id} className={className}>
@@ -216,5 +271,6 @@ export default {
   TopSellersSkeleton,
   ExploreItemsSkeleton,
   AuthorSkeleton,
+  ItemDetailsSkeleton,
   SkeletonSection,
 };
