@@ -171,6 +171,34 @@ export const ExploreItemsSkeleton = ({ count = 8 }) => (
   </>
 );
 
+// Author Skeleton Layout
+export const AuthorSkeleton = ({ count = 4 }) => (
+  <div className="row">
+    <div className="col-lg-12 text-center">
+      <h2>Hot Collections</h2>
+      <div className="small-border bg-color-2"></div>
+    </div>
+    {Array.from({ length: count }).map((_, index) => (
+      <div className="col-lg-3 col-md-6 col-sm-6 col-xs-12" key={index}>
+        <div className="nft_coll">
+          <div className="nft_wrap">
+            <SkeletonBox style={{ height: "200px" }} />
+          </div>
+          <div className="nft_coll_pp">
+            <SkeletonCircle style={{ width: "50px", height: "50px" }} />
+          </div>
+          <div className="nft_coll_info text-center">
+            <SkeletonText
+              style={{ width: "60%", height: "20px", marginBottom: "8px" }}
+            />
+            <SkeletonText style={{ width: "40%", height: "16px" }} />
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
 // Section wrapper with consistent styling
 export const SkeletonSection = ({ children, id, className = "" }) => (
   <section id={id} className={className}>
@@ -187,5 +215,6 @@ export default {
   NewItemsSkeleton,
   TopSellersSkeleton,
   ExploreItemsSkeleton,
+  AuthorSkeleton,
   SkeletonSection,
 };
