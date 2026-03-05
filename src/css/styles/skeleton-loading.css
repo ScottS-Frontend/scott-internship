@@ -1,12 +1,11 @@
 /* Skeleton Loading Styles */
-<<<<<<< Updated upstream
 .skeleton-box,
 .skeleton-circle,
 .skeleton-text {
-=======
+
 
 .skeleton {
->>>>>>> Stashed changes
+
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
@@ -20,8 +19,7 @@
   border-radius: 50%;
 }
 
-<<<<<<< Updated upstream
-=======
+
 .skeleton-text {
   border-radius: 4px;
   line-height: 1;
@@ -77,7 +75,7 @@
   margin-bottom: 8px;
 }
 
->>>>>>> Stashed changes
+
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
@@ -85,9 +83,9 @@
   100% {
     background-position: -200% 0;
   }
-<<<<<<< Updated upstream
+
 }
-=======
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -95,4 +93,3 @@
     animation: none;
   }
 }
->>>>>>> Stashed changes
