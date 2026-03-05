@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { 
-  TopSellersSkeleton, 
+import {
+  TopSellersSkeleton,
   SkeletonSection,
-  useLoadingDelay 
+  useLoadingDelay,
 } from "../Skeleton/Skeleton";
 
 const TopSellers = () => {
@@ -17,7 +17,7 @@ const TopSellers = () => {
     const fetchItems = async () => {
       try {
         const { data } = await axios.get(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers"
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/topSellers",
         );
         setItems(data);
       } catch (err) {
@@ -47,7 +47,7 @@ const TopSellers = () => {
     <section id="section-popular" className="pb-5">
       <div className="container">
         <div className="row">
-          <div className="col-lg-12 text-center">
+          <div className="col-lg-12 text-center" data-aos="fade-in">
             <h2>Top Sellers</h2>
             <div className="small-border bg-color-2"></div>
           </div>
@@ -55,7 +55,7 @@ const TopSellers = () => {
           <div className="col-md-12">
             <ol className="author_list">
               {items.slice(0, 12).map((item) => (
-                <li key={item.id}>
+                <li key={item.id} data-aos="fade-in">
                   <div className="author_list_pp">
                     <Link to={`/author/${item.authorId}`}>
                       <img
@@ -81,6 +81,6 @@ const TopSellers = () => {
       </div>
     </section>
   );
-};   
+};
 
 export default TopSellers;

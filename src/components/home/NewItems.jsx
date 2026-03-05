@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
 import Countdown from "../UI/Countdown";
-import { 
-  NewItemsSkeleton, 
+import {
+  NewItemsSkeleton,
   SkeletonSection,
-  useLoadingDelay 
+  useLoadingDelay,
 } from "../Skeleton/Skeleton";
 import { owlCarouselOptions } from "../UI/carouselConfig";
 
@@ -20,7 +20,7 @@ const NewItems = () => {
     const fetchItems = async () => {
       try {
         const response = await axios.get(
-          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
+          "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems",
         );
         setItems(response.data);
       } catch (error) {
@@ -67,7 +67,7 @@ const NewItems = () => {
     <section id="section-items" className="no-bottom">
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">
+          <div className="col-lg-12" data-aos="fade-in">
             <div className="text-center">
               <h2>New Items</h2>
               <div className="small-border bg-color-2"></div>
@@ -76,11 +76,11 @@ const NewItems = () => {
           <div className="col-lg-12">
             <OwlCarousel className="owl-theme" {...owlCarouselOptions}>
               {items.map((item) => (
-                <div className="item" key={item.id}>
+                <div className="item" key={item.id} data-aos="fade-in">
                   <div className="nft__item">
                     <div className="author_list_pp">
                       <Link
-                        to={ `/author/${item.authorId}` }
+                        to={`/author/${item.authorId}`}
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title="Creator: Monica Lucas"
