@@ -9,28 +9,28 @@ const Explore = () => {
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(8);
 
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
     fetchItems();
   }, []);
 
- const fetchItems = async (filterValue = "") => {
-  setLoading(true);
+  const fetchItems = async (filterValue = "") => {
+    setLoading(true);
 
-  try {
-    const url = filterValue
-      ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filterValue}`
-      : "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore";
+    try {
+      const url = filterValue
+        ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filterValue}`
+        : "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore";
 
-    const response = await axios.get(url);
-    setItems(response.data);
-    setVisibleCount(8);
-  } catch (error) {
-    console.error("Error fetching items:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+      const response = await axios.get(url);
+      setItems(response.data);
+      setVisibleCount(8);
+    } catch (error) {
+      console.error("Error fetching items:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const loadMore = () => {
     setVisibleCount((prev) => prev + 4);
@@ -41,9 +41,9 @@ const Explore = () => {
   const showLoadMore = visibleCount < 16 && visibleCount < items.length;
 
   const handleFilter = (value) => {
-  setFilter(value);
-  fetchItems(value);
-};
+    setFilter(value);
+    fetchItems(value);
+  };
 
   return (
     <div id="wrapper">
@@ -67,7 +67,7 @@ const Explore = () => {
         </section>
         <section aria-label="section">
           <div className="container">
-            <div className="row">
+            <div className="row" data-aos="fade-in">
               <ExploreItems
                 items={visibleItems}
                 loading={loading}
