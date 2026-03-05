@@ -5,7 +5,6 @@ import axios from "axios";
 
 const Explore = () => {
   const [items, setItems] = useState([]);
-  const [filter, setFilter] = useState("");
   const [loading, setLoading] = useState(true);
   const [visibleCount, setVisibleCount] = useState(8);
 
@@ -14,12 +13,11 @@ const Explore = () => {
     fetchItems();
   }, []);
 
-  const fetchItems = async (filterValue = "") => {
+  const fetchItems = async (filter = "") => {
     setLoading(true);
-
     try {
-      const url = filterValue
-        ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filterValue}`
+      const url = filter
+        ? `https://us-central1-nft-cloud-functions.cloudfunctions.net/explore?filter=${filter}`
         : "https://us-central1-nft-cloud-functions.cloudfunctions.net/explore";
 
       const response = await axios.get(url);
@@ -39,11 +37,6 @@ const Explore = () => {
   const visibleItems = items.slice(0, visibleCount);
 
   const showLoadMore = visibleCount < 16 && visibleCount < items.length;
-
-  const handleFilter = (value) => {
-    setFilter(value);
-    fetchItems(value);
-  };
 
   return (
     <div id="wrapper">
@@ -67,12 +60,11 @@ const Explore = () => {
         </section>
         <section aria-label="section">
           <div className="container">
-            <div className="row" data-aos="fade-in">
+            <div className="row">
               <ExploreItems
                 items={visibleItems}
                 loading={loading}
-                onFilter={handleFilter}
-                filter={filter}
+                onFilter={fetchItems}
                 onLoadMore={loadMore}
                 showLoadMore={showLoadMore}
               />

@@ -1,10 +1,85 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Countdown from "../UI/Countdown";
-import { 
-  ExploreItemsSkeleton, 
-  SkeletonSection 
+import {
+  SkeletonBox,
+  SkeletonCircle,
+  SkeletonText,
 } from "../Skeleton/Skeleton";
+
+const CountdownTimer = ({ expiryDate }) => {
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(expiryDate));
+
+  function calculateTimeLeft(expiryDate) {
+    const difference = +new Date(expiryDate) - +new Date();
+    let timeLeft = {};
+
+    if (difference > 0) {
+      timeLeft = {
+        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((difference / 1000 / 60) % 60),
+        seconds: Math.floor((difference / 1000) % 60),
+      };
+    }
+    return timeLeft;
+  }
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft(expiryDate));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [expiryDate]);
+
+  const format = (num) => String(num).padStart(2, "0");
+
+  if (timeLeft.hours === undefined) return null;
+
+  return (
+    <div className="de_countdown">
+      {format(timeLeft.hours)}h {format(timeLeft.minutes)}m{" "}
+      {format(timeLeft.seconds)}s
+    </div>
+  );
+};
+
+const ExploreSkeleton = ({ count = 8 }) => (
+  <>
+    <div>
+      <select id="filter-items" defaultValue="" disabled>
+        <option value="">Default</option>
+        <option value="price_low_to_high">Price, Low to High</option>
+        <option value="price_high_to_low">Price, High to Low</option>
+        <option value="likes_high_to_low">Most liked</option>
+      </select>
+    </div>
+    {Array.from({ length: count }).map((_, index) => (
+      <div
+        className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
+        key={index}
+        style={{ display: "block", backgroundSize: "cover" }}
+      >
+        <div className="nft__item">
+          <div className="author_list_pp">
+            <SkeletonCircle style={{ width: "50px", height: "50px" }} />
+          </div>
+          <SkeletonBox
+            className="de_countdown"
+            style={{ width: "100px", height: "24px" }}
+          />
+          <div className="nft__item_wrap">
+            <SkeletonBox style={{ height: "200px", width: "100%" }} />
+          </div>
+          <div className="nft__item_info">
+            <SkeletonText
+              style={{ width: "60%", height: "20px", marginBottom: "8px" }}
+            />
+            <SkeletonText style={{ width: "40%", height: "16px" }} />
+          </div>
+        </div>
+      </div>
+    ))}
+  </>
+);
 
 const ExploreItems = ({
   items,
@@ -12,24 +87,19 @@ const ExploreItems = ({
   onFilter,
   onLoadMore,
   showLoadMore,
-  filter,
 }) => {
   const handleFilterChange = (e) => {
     onFilter(e.target.value);
   };
 
   if (loading) {
-    return (
-      <SkeletonSection>
-        <ExploreItemsSkeleton count={8} />
-      </SkeletonSection>
-    );
+    return <ExploreSkeleton count={8} />;
   }
 
   return (
     <>
       <div>
-        <select id="filter-items" value={filter} onChange={handleFilterChange}>
+        <select id="filter-items" defaultValue="" onChange={handleFilterChange}>
           <option value="">Default</option>
           <option value="price_low_to_high">Price, Low to High</option>
           <option value="price_high_to_low">Price, High to Low</option>
@@ -56,7 +126,7 @@ const ExploreItems = ({
               </Link>
             </div>
 
-            {item.expiryDate && <Countdown expiryDate={item.expiryDate} />}
+            {item.expiryDate && <CountdownTimer expiryDate={item.expiryDate} />}
 
             <div className="nft__item_wrap">
               <div className="nft__item_extra">

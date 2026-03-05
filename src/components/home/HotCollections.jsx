@@ -2,12 +2,37 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
-import { 
-  HotCollectionsSkeleton, 
-  SkeletonSection,
-  useLoadingDelay 
-} from "../Skeleton/Skeleton";
+
+// Skeleton Card Component
+const SkeletonCard = () => (
+  <div className="nft_coll">
+    <div className="nft_wrap">
+      <div
+        className="skeleton-box"
+        style={{ height: "200px", width: "100%" }}
+      ></div>
+    </div>
+    <div className="nft_coll_pp">
+      <div
+        className="skeleton-circle"
+        style={{ width: "50px", height: "50px", margin: "0 auto" }}
+      ></div>
+    </div>
+    <div className="nft_coll_info" style={{ textAlign: "center" }}>
+      <div
+        className="skeleton-text"
+        style={{ width: "60%", height: "20px", margin: "0 auto 8px" }}
+      ></div>
+      <div
+        className="skeleton-text"
+        style={{ width: "40%", height: "16px", margin: "0 auto" }}
+      ></div>
+    </div>
+  </div>
+);
+=======
 import { owlCarouselOptions } from "../UI/carouselConfig";
+
 
 const HotCollections = () => {
   const [collections, setCollections] = useState([]);

@@ -2,12 +2,35 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import OwlCarousel from "react-owl-carousel";
-import Countdown from "../UI/Countdown";
 import {
   NewItemsSkeleton,
   SkeletonSection,
   useLoadingDelay,
 } from "../Skeleton/Skeleton";
+
+const Countdown = ({ expiryDate }) => {
+  const [timeLeft, setTimeLeft] = React.useState(expiryDate - Date.now());
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(expiryDate - Date.now());
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [expiryDate]);
+
+  if (timeLeft <= 0) return null;
+
+  const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+  const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+  return (
+    <div className="de_countdown">
+      {hours}h {minutes}m {seconds}s
+    </div>
+  );
+};
+
 import { owlCarouselOptions } from "../UI/carouselConfig";
 
 const NewItems = () => {
